@@ -225,6 +225,14 @@ config REGULATOR_AW37503
 	  This driver supports AW37503 single inductor - dual output
 	  power supply specifically designed for display panels.
 
+config REGULATOR_AW37004
+	tristate "Awinic AW37004 Dual Output Power regulators"
+	depends on I2C && GPIOLIB
+	select REGMAP_I2C
+	help
+	  This driver supports AW37004 single inductor - dual output
+	  power supply specifically designed for display panels.
+
 config REGULATOR_AXP20X
 	tristate "X-POWERS AXP20X PMIC Regulators"
 	depends on MFD_AXP20X
