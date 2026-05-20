@@ -965,4 +965,7 @@ source "drivers/leds/trigger/Kconfig"
 comment "Simple LED drivers"
 source "drivers/leds/simple/Kconfig"
 
+comment "Awinic AW20144 LEDs"
+source "drivers/leds/aw20144/Kconfig"
+
 endif # NEW_LEDS
