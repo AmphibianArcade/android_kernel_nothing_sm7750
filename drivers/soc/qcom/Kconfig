@@ -1277,4 +1277,11 @@ config NT_TOUCH_NOTIFIER
 	  Enabling this option adds nt TP fod event notifier driver.
 	  This driver is responsible for notifying clients, such as fingerprint.
 
+config NT_DISPLAY_NOTIFIER
+	tristate "hbm&ui event notifier"
+	help
+	  Enabling this option adds nt display hbm&ui event notifier driver.
+	  This driver is responsible for notifying clients, such as fingerprint,
+	  interested in display hbm&ui status to decide capture image or not.
+
 endmenu

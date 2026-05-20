@@ -120,3 +120,4 @@ obj-$(CONFIG_QCOM_PMIC_ECID) += qcom-pmic-ecid.o
 obj-$(CONFIG_QCOM_CX_IPEAK) += cx_ipeak.o
 
 obj-$(CONFIG_NT_TOUCH_NOTIFIER) += touchpanel_event_notify.o
+obj-$(CONFIG_NT_DISPLAY_NOTIFIER) += nt_display_notifier.o
