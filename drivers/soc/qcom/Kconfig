@@ -1277,6 +1277,10 @@ config NT_TOUCH_NOTIFIER
 	  Enabling this option adds nt TP fod event notifier driver.
 	  This driver is responsible for notifying clients, such as fingerprint.
 
+config NOTHING_IS_FROGGERPRO
+	bool "Enable if board is NT FroggerPro"
+	default n
+
 config NT_DISPLAY_NOTIFIER
 	tristate "hbm&ui event notifier"
 	help
