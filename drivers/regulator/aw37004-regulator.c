@@ -49,17 +49,17 @@
  	AW37004_MAX_REGULATORS,
  };
 
- /* ldo1~4  0-min current,1- max current */
- /*
-  *	LDO1	1550000, 2000000
-  *	LDO2	1250000, 1900000
-  *	LDO3	400000, 1000000
-  *	LDO4	400000, 1000000
-  */
- static const unsigned int aw37004_crtable1[] = {1550000, 3000000};
- static const unsigned int aw37004_crtable2[] = {1250000, 1900000};
- static const unsigned int aw37004_crtable3[] = {400000, 1000000};
- static const unsigned int aw37004_crtable4[] = {400000, 1000000};
+/* LDO current limits (uA) */
+/*
+ *	LDO1	1300000, 1440000, 1580000, 1720000
+ *	LDO2	1300000, 1440000, 1580000, 1720000
+ *	LDO3	480000, 620000, 760000, 900000
+ *	LDO4	480000, 620000, 760000, 900000
+ */
+static const unsigned int aw37004_crtable1[] = {1300000, 1440000, 1580000, 1720000};
+static const unsigned int aw37004_crtable2[] = {1300000, 1440000, 1580000, 1720000};
+static const unsigned int aw37004_crtable3[] = {480000, 620000, 760000, 900000};
+static const unsigned int aw37004_crtable4[] = {480000, 620000, 760000, 900000};
 
  struct aw37004 {
  	struct 	device *dev;
@@ -110,24 +110,20 @@
   		.owner				= THIS_MODULE,								\
   	}
 
-  static const struct regulator_desc aw37004_reg[] = {
-  	AW37004_DESC(AW37004_REGULATOR_LDO1, "AW_LDO1", "vin1", 600, 2130, 6,
-  		     	AW37004_LDO1_DVO1, AW37004_VSEL_MASK, AW37004_LDO_EN, BIT(0),
-  			 	BIT(0), 0,	aw37004_crtable1, AW37004_ILIMIT, BIT(0), 0),
-
-  	AW37004_DESC(AW37004_REGULATOR_LDO2, "AW_LDO2", "vin1", 600, 2130, 6,
-  		     	AW37004_LDO2_DVO2, AW37004_VSEL_MASK, AW37004_LDO_EN, BIT(1),
-  			 	BIT(1), 0, aw37004_crtable2, AW37004_ILIMIT, BIT(1), 0),
-
-  	AW37004_DESC(AW37004_REGULATOR_LDO3, "AW_LDO3", "vin2", 1200, 4387.5, 12.5,
-  		     	AW37004_LDO3_AVO1, AW37004_VSEL_MASK, AW37004_LDO_EN, BIT(2),
-  			 	BIT(2), 0, aw37004_crtable3, AW37004_ILIMIT, BIT(2), 0),
-
-  	AW37004_DESC(AW37004_REGULATOR_LDO4, "AW_LDO4", "vin2", 1200, 4387.5, 12.5,
-  		     	AW37004_LDO4_AVO2, AW37004_VSEL_MASK, AW37004_LDO_EN, BIT(3),
-  			 	BIT(3), 0, aw37004_crtable4, AW37004_ILIMIT, BIT(3), 0),
-  };
-
+static const struct regulator_desc aw37004_reg[] = {
+	AW37004_DESC(AW37004_REGULATOR_LDO1, "AW_LDO1", "vin1", 600, 2130, 6,
+		     AW37004_LDO1_DVO1, AW37004_VSEL_MASK, AW37004_LDO_EN, BIT(0),
+		     BIT(0), 0, aw37004_crtable1, AW37004_ILIMIT, GENMASK(1, 0), 0),
+	AW37004_DESC(AW37004_REGULATOR_LDO2, "AW_LDO2", "vin1", 600, 2130, 6,
+		     AW37004_LDO2_DVO2, AW37004_VSEL_MASK, AW37004_LDO_EN, BIT(1),
+		     BIT(1), 0, aw37004_crtable2, AW37004_ILIMIT, GENMASK(3, 2), 0),
+	AW37004_DESC(AW37004_REGULATOR_LDO3, "AW_LDO3", "vin2", 1200, 4387.5, 12.5,
+		     AW37004_LDO3_AVO1, AW37004_VSEL_MASK, AW37004_LDO_EN, BIT(2),
+		     BIT(2), 0, aw37004_crtable3, AW37004_ILIMIT, GENMASK(5, 4), 0),
+	AW37004_DESC(AW37004_REGULATOR_LDO4, "AW_LDO4", "vin2", 1200, 4387.5, 12.5,
+		     AW37004_LDO4_AVO2, AW37004_VSEL_MASK, AW37004_LDO_EN, BIT(3),
+		     BIT(3), 0, aw37004_crtable4, AW37004_ILIMIT, GENMASK(7, 6), 0),
+};
 
   static const struct regmap_range aw37004_writeable_ranges[] = {
   	regmap_reg_range(AW37004_ILIMIT, AW37004_ILMIT_COAR),
