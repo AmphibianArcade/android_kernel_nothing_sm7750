@@ -79,21 +79,21 @@ enum sgm38120_regulators {
 
 /* LDO current limits (uA) */
 /*
- *	LDO1	1460000, 2000000
- *	LDO2	1460000, 2000000
- *	LDO3	500000, 700000
- *	LDO4	500000, 700000
- *	LDO5	740000, 950000
- *	LDO6	500000, 700000
- *	LDO7	740000, 950000
+ *	LDO1	1150000, 1400000
+ *	LDO2	1150000, 1400000
+ *	LDO3	400000, 500000
+ *	LDO4	400000, 500000
+ *	LDO5	550000, 750000
+ *	LDO6	400000, 500000
+ *	LDO7	550000, 750000
  */
-static const unsigned int sgm38120_crtable1[] = {1460000, 2000000};
-static const unsigned int sgm38120_crtable2[] = {1460000, 2000000};
-static const unsigned int sgm38120_crtable3[] = {500000, 700000};
-static const unsigned int sgm38120_crtable4[] = {500000, 700000};
-static const unsigned int sgm38120_crtable5[] = {740000, 950000};
-static const unsigned int sgm38120_crtable6[] = {500000, 700000};
-static const unsigned int sgm38120_crtable7[] = {740000, 950000};
+static const unsigned int sgm38120_crtable1[] = {1150000, 1400000};
+static const unsigned int sgm38120_crtable2[] = {1150000, 1400000};
+static const unsigned int sgm38120_crtable3[] = {400000, 500000};
+static const unsigned int sgm38120_crtable4[] = {400000, 500000};
+static const unsigned int sgm38120_crtable5[] = {550000, 750000};
+static const unsigned int sgm38120_crtable6[] = {400000, 500000};
+static const unsigned int sgm38120_crtable7[] = {550000, 750000};
 
 struct sgm38120 {
 	struct device *dev;
