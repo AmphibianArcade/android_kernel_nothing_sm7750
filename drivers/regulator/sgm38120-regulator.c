@@ -116,13 +116,12 @@ module_param(debug_en, uint, 0644);
 
 static int sgm38120_regulator_disable_regmap(struct regulator_dev *rdev);
 static int sgm38120_regulator_enable_regmap(struct regulator_dev *rdev);
-static int sgm38120_regulator_set_voltage_sel_regmap(struct regulator_dev *rdev, unsigned sel);
 
 static const struct regulator_ops sgm38120_reg_ops = {
 	.list_voltage		= regulator_list_voltage_linear,
 	.map_voltage		= regulator_map_voltage_linear,
 	.get_voltage_sel	= regulator_get_voltage_sel_regmap,
-	.set_voltage_sel	= sgm38120_regulator_set_voltage_sel_regmap,
+	.set_voltage_sel	= regulator_set_voltage_sel_regmap,
 	.set_current_limit  = regulator_set_current_limit_regmap,
 	.enable			= sgm38120_regulator_enable_regmap,
 	.disable		= sgm38120_regulator_disable_regmap,
@@ -138,7 +137,7 @@ static const struct regulator_ops sgm38120_reg_ops = {
 		.supply_name	= (_supply),					\
 		.min_uV		= (_min) * 1000,				\
 		.uV_step	= (_step) * 1000,				\
-		.n_voltages	= (((_max) - (_min)) / (_step) + _minsel),	\
+		.n_voltages	= (((_max) - (_min)) / (_step) + 1 + _minsel),	\
 		.n_current_limits = ARRAY_SIZE(_curr_table),			\
 		.regulators_node = of_match_ptr("regulators"),			\
 		.type		= REGULATOR_VOLTAGE,				\
@@ -165,19 +164,19 @@ static const struct regulator_desc sgm38120_reg[] = {
 		     BIT(1), 0, sgm38120_crtable2, SGM38120_ILIM, BIT(1), 3),
 	SGM38120_DESC(SGM38120_REGULATOR_LDO3, "SGM_L3M", "vin34", 1504, 3544, 8,
 		     SGM38120_LDO3_VOUT, SGM38120_VSEL_MASK, SGM38120_LDO_EN, BIT(2),
-		     BIT(2), 0, sgm38120_crtable3, SGM38120_ILIM, BIT(2), 1),
+		     BIT(2), 0, sgm38120_crtable3, SGM38120_ILIM, BIT(2), 0),
 	SGM38120_DESC(SGM38120_REGULATOR_LDO4, "SGM_L4M", "vin34", 1504, 3544, 8,
 		     SGM38120_LDO4_VOUT, SGM38120_VSEL_MASK, SGM38120_LDO_EN, BIT(3),
-		     BIT(3), 0, sgm38120_crtable4, SGM38120_ILIM, BIT(3), 1),
+		     BIT(3), 0, sgm38120_crtable4, SGM38120_ILIM, BIT(3), 0),
 	SGM38120_DESC(SGM38120_REGULATOR_LDO5, "SGM_L5M", "vin5", 1504, 3544, 8,
 		     SGM38120_LDO5_VOUT, SGM38120_VSEL_MASK, SGM38120_LDO_EN, BIT(4),
-		     BIT(4), 0, sgm38120_crtable5, SGM38120_ILIM, BIT(4), 1),
+		     BIT(4), 0, sgm38120_crtable5, SGM38120_ILIM, BIT(4), 0),
 	SGM38120_DESC(SGM38120_REGULATOR_LDO6, "SGM_L6M", "vin6", 1504, 3544, 8,
 		     SGM38120_LDO6_VOUT, SGM38120_VSEL_MASK, SGM38120_LDO_EN, BIT(5),
-		     BIT(5), 0, sgm38120_crtable6, SGM38120_ILIM, BIT(5), 1),
+		     BIT(5), 0, sgm38120_crtable6, SGM38120_ILIM, BIT(5), 0),
 	SGM38120_DESC(SGM38120_REGULATOR_LDO7, "SGM_L7M", "vin7", 1504, 3544, 8,
 		     SGM38120_LDO7_VOUT, SGM38120_VSEL_MASK, SGM38120_LDO_EN, BIT(6),
-		     BIT(6), 0, sgm38120_crtable7, SGM38120_ILIM, BIT(6), 1),
+		     BIT(6), 0, sgm38120_crtable7, SGM38120_ILIM, BIT(6), 0),
 };
 
 static const struct regmap_range sgm38120_writeable_ranges[] = {
@@ -217,25 +216,6 @@ static const struct regmap_config sgm38120_regmap_config = {
 	.volatile_table = &sgm38120_volatile_table,
 };
 
-static int sgm38120_regulator_set_voltage_sel_regmap(struct regulator_dev *rdev, unsigned sel)
-{
-	int rc =0;
-	int i;
-	// int ret = 0;
-	uint32_t tmp_data=0,voltage=0;
-	struct device *dev = rdev->dev.parent;
-	dev_err(dev, "[%s]sgm38120_regulator_set_voltage_sel_regmap sel = 0x%x", rdev->desc->name, sel);
-	if (NULL != rdev && (debug_en & SGM_DBG_INT_READ)){
-	    regmap_read(rdev->regmap, SGM38120_LDO_EN, &tmp_data);
-	    // rc = regulator_set_voltage_sel_regmap(rdev, sel);
-	    dev_info(dev, "sgm38120_regulator_set_voltage_sel_regmap %s=0x%x\n", rdev->desc->name, tmp_data);
-	    for (i = 0; i < 7; i++) {
-	        regmap_read(rdev->regmap, SGM38120_LDO1_VOUT + i, &voltage);
-	        dev_info(dev, "sgm38120_regulator_set_voltage_sel_regmap SGM_LDO%d value: 0x%02x %s\n", i, voltage, rdev->desc->name);
-	    }
-	}
-	return rc;
-}
 static int sgm38120_regulator_disable_regmap(struct regulator_dev *rdev)
 {
 	struct device *dev = rdev->dev.parent;
