@@ -968,4 +968,6 @@ source "drivers/leds/simple/Kconfig"
 comment "Awinic AW20144 LEDs"
 source "drivers/leds/aw20144/Kconfig"
 
+source "drivers/leds/matrix-leds/Kconfig"
+
 endif # NEW_LEDS
