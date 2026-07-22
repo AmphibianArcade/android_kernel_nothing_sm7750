@@ -1281,6 +1281,10 @@ config NOTHING_IS_FROGGERPRO
 	bool "Enable if board is NT FroggerPro"
 	default n
 
+config NOTHING_IS_METROID
+	bool "Enable if board is NT Metroid"
+	default n
+
 config NT_DISPLAY_NOTIFIER
 	tristate "hbm&ui event notifier"
 	help
