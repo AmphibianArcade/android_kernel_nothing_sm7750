@@ -33,3 +33,5 @@ obj-$(CONFIG_INPUT_APMPOWER)	+= apm-power.o
 obj-$(CONFIG_RMI4_CORE)		+= rmi4/
 
 obj-y += fingerprint/
+
+obj-$(CONFIG_AW9380X)         += aw9380x/
