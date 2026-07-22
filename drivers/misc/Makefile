@@ -72,3 +72,5 @@ obj-$(CONFIG_QSEECOM_PROXY) 	+= qseecom_proxy.o
 obj-$(CONFIG_PKVM_SMC_FILTER)  += pkvm-smc/
 obj-$(CONFIG_ICS_HAPTIC_DRV)  += haptic/
 obj-$(CONFIG_AWINIC_HAPTIC_HV) += haptic_hv/
+
+obj-$(CONFIG_NOTH_OIS_REG_DEBUG) += ois_regulator.o

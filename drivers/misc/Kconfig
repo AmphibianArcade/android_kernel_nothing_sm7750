@@ -587,6 +587,12 @@ config PKVM_SMC_FILTER
 
 	  Say N here unless you know what you are doing.
 
+config NOTH_OIS_REG_DEBUG
+	tristate "ois regulator debug driver support"
+	help
+		Say Y here to support OIS regulator debug driver
+		If unsure, say N
+
 source "drivers/misc/c2port/Kconfig"
 source "drivers/misc/eeprom/Kconfig"
 source "drivers/misc/cb710/Kconfig"
