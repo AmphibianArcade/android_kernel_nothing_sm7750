@@ -1016,12 +1016,24 @@ static ssize_t frame_brightness_store(struct device *dev,
 	pm_stay_awake(aw20144->dev);
 	frame_num = 0;
 	if (sscanf(buf, "%d", &val) == 1) {
+		if (val < 0) {
+			pm_relax(aw20144->dev);
+			return -EINVAL;
+		}
 		frame_brightness[frame_num] = val;
 		p = strchr(buf, ch);
 		while (p) {
 			p = p + 1;
 			if (sscanf(p, "%d", &val) == 1) {
+				if (val < 0) {
+					pm_relax(aw20144->dev);
+					return -EINVAL;
+				}
 				frame_num++;
+				if (frame_num >= ALL_CHANNEL) {
+					pm_relax(aw20144->dev);
+					return -EINVAL;
+				}
 				frame_brightness[frame_num] = val;
 				p = strchr(p, ch);
 			} else {
