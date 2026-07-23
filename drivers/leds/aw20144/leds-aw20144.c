@@ -1033,32 +1033,7 @@ static ssize_t frame_brightness_store(struct device *dev,
 
 	LOG_INFO("frame_num %d\n", frame_num);
 
-	/*frame interface for 24111*/
-	if (frame_num == ALL_CHANNEL) {
-		int led_all[ALL_CHANNEL] = {18, 6, 29, 17, 5, 28, 16, 4, 27, 15, 3, 26, 14, 2, 25, 13, 1, 24, 12, 0, 8, 9, 21, 33, 32, 34, 10, 22, 11, 23, 35, 20, 31, 30, 19, 7};
-		for (i = 0; i < ALL_CHANNEL; i++) {
-			num = led_all[i];
-			brightness[num] = frame_brightness[i];
-		}
-	} else if (frame_num == 20) {
-		int led0[20] = {18, 6, 29, 17, 5, 28, 16, 4, 27, 15, 3, 26, 14, 2, 25, 13, 1, 24, 12, 0};
-		for (i = 0; i < 20; i++) {
-			num = led0[i];
-			brightness[num] = frame_brightness[i];
-		}
-	} else if (frame_num == 5) {
-		int led1[5] = {20, 31, 30, 19, 7};
-		for (i = 0; i < 5; i++) {
-			num = led1[i];
-			brightness[num] = frame_brightness[i];
-		}
-	} else if (frame_num == 11) {
-		int led2[11] = {8, 9, 21, 33, 32, 34, 10, 22, 11, 23, 35};
-		for (i = 0; i < 5; i++) {
-			num = led2[i];
-			brightness[num] = frame_brightness[i];
-		}
-	} else if (frame_num == VALID_CHANNEL) {
+	if (frame_num == VALID_CHANNEL) {
 		int mapping_channels[VALID_CHANNEL] = {
 				0, 18, 36, 54, 72, 1, 19, 37,
 				55, 73, 91, 109, 127, 142, 12, 2,
