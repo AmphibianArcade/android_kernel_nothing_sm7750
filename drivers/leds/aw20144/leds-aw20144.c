@@ -611,7 +611,7 @@ static const struct file_operations aw20144_ioctl_fops = {
 
 static struct miscdevice led_strips_dev = {
 	.minor = MISC_DYNAMIC_MINOR,
-	.name = "led_strips",
+	.name = "matrix-leds",
 	.fops = &aw20144_ioctl_fops,
 };
 
